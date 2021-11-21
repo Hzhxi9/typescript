@@ -347,3 +347,147 @@ attr('hello');
 attr(9);
 // attr(true); 
 console.log(obj2);
+/**
+ * 类
+ * 在 TypeScript 中，我们可以通过 Class 关键字来定义一个类
+ */
+var Person = /** @class */ (function () {
+    function Person(_name) {
+        this.name = _name;
+    }
+    Person.prototype.getName = function () {
+        console.log(this.name);
+    };
+    return Person;
+}());
+var p1 = new Person('hello');
+p1.getName();
+/**
+ * 当我们定义一个类的时候,会得到 2 个类型
+ * 一个是构造函数类型的函数类型(当做普通构造函数的类型)
+ * 另一个是类的实例类型（代表实例）
+ */
+var Component = /** @class */ (function () {
+    function Component() {
+        this.myName = "实例名称";
+    }
+    Component.myName = "静态名称";
+    return Component;
+}());
+/**
+ * ts 一个类型 一个叫值
+ */
+/**放在=后面的是值 */
+var comp = Component; /**这里是代表构造函数 */
+/**冒号后面的是类型 */
+var c = new Component(); /**这里是代表实例类型 */
+var f = comp;
+/**
+ * 存取器
+ * 在 TypeScript 中
+ * 我们可以通过存取器来改变一个类中属性的读取和赋值行为
+ */
+var User = /** @class */ (function () {
+    function User(myName) {
+        this.myName = myName;
+    }
+    Object.defineProperty(User.prototype, "name", {
+        get: function () {
+            return this.myName;
+        },
+        set: function (value) {
+            this.myName = value;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    return User;
+}());
+var user = new User('home');
+user.name = 'world';
+/**
+ * readonly 只读属性
+ * readonly 修饰的变量只能在构造函数中初始化
+ * TypeScript 的类型系统同样也允许将 interface、type、 class 上的属性标识为 readonly
+ * readonly 实际上只是在编译阶段进行代码检查。
+ */
+var Animal1 = /** @class */ (function () {
+    function Animal1(name) {
+        this.name = name;
+    }
+    Animal1.prototype.changeName = function (name) {
+        // this.name = name // error
+    };
+    return Animal1;
+}());
+var a = new Animal1('dog');
+/**
+ * 继承
+ * 子类继承父类后子类的实例就拥有了父类中的属性和方法，可以增强代码的可复用性
+ * 将子类公用的方法抽象出来放在父类中，自己的特殊逻辑放在子类中重写父类的逻辑
+ * super 可以调用父类上的方法和属性
+ * 在 TypeScript 中，我们可以通过 extends 关键字来实现继承
+ */
+var Father = /** @class */ (function () {
+    function Father(name, age) {
+        /**构造函数 */
+        this.name = name;
+        this.age = age;
+    }
+    Father.prototype.getName = function () {
+        return this.name;
+    };
+    Father.prototype.setName = function (name) {
+        this.name = name;
+    };
+    return Father;
+}());
+var Son = /** @class */ (function (_super) {
+    __extends(Son, _super);
+    function Son(name, age, no) {
+        var _this = _super.call(this, name, age) || this;
+        _this.no = no;
+        return _this;
+    }
+    Son.prototype.getNo = function () {
+        return this.no;
+    };
+    return Son;
+}(Father));
+var s1 = new Son('hello', 10, 1);
+console.log(s1);
+/**
+ * 类里面的修饰符
+ * public 类里面 子类 其它任何地方外边都可以访问
+ * protected 类里面 子类 都可以访问,其它任何地方不能访问
+ * private 类里面可以访问，子类和其它任何地方都不可以访问
+ */
+var Father1 = /** @class */ (function () {
+    function Father1(name, age, car) {
+        /**构造函数 */
+        this.name = name;
+        this.age = age;
+        this.car = car;
+    }
+    Father1.prototype.getName = function () {
+        return this.name;
+    };
+    Father1.prototype.setName = function (name) {
+        this.name = name;
+    };
+    return Father1;
+}());
+var Son1 = /** @class */ (function (_super) {
+    __extends(Son1, _super);
+    function Son1(name, age, car) {
+        return _super.call(this, name, age, car) || this;
+    }
+    Son1.prototype.desc = function () {
+        console.log(this.name + " " + this.age + " " + this.car); //car访问不到 会报错
+    };
+    return Son1;
+}(Father1));
+var c1 = new Son1('hello', 10, 1000);
+console.log(c1.name);
+console.log(c1.age); //age访问不到 会报错
+console.log(c1.car); //car访问不到 会报错
