@@ -156,6 +156,124 @@ const max2 = BigInt(Number.MAX_SAFE_INTEGER);
 console.log(max2 + 1n === max2 + 2n);
 
 let foo: number;
-let bar: bigint; 
+let bar: bigint;
 // foo = bar; // error
 // bar = foo; // error
+
+
+/**object 类型永远表示非原始类型*/
+let obj: object;
+// obj = 1 // error
+// obj = '1' // error
+// obj = true // error
+// obj = null // error
+// obj = undefined; // error
+obj = {} // pass
+
+/**
+ * Object 代表所有拥有 toString、hasOwnProperty 方法的类型 
+ * 所以所有原始类型、非原始类型都可以赋给
+ **/
+let object: Object;
+object = 1; // pass
+object = '1'; // pass
+object = false; // pass
+// object = null; // error
+// object = undefined; // error
+object = {}; // pass
+
+/**{} 空对象类型和大 Object 一样 也是表示原始类型和非原始类型的集合 */
+let object1: {};
+object1 = 1; // pass
+object1 = '1'; // pass
+object1 = false; // pass
+// object1 = null; // error
+// object1 = undefined; // error
+object1 = {}; // pass
+
+/**
+ * 类型推论
+ * 指编程语言中能够自动推导出值的类型的能力 
+ * 它是一些强静态类型语言中出现的特性
+ * 定义时未赋值就会推论成 any 类型
+ * 如果定义的时候就赋值就能利用到类型推论
+ */
+let initAny; // 推断为any
+let count = 123; // 为number类型
+let string = 'hello'; // 为string类型
+
+/**
+ * 联合类型
+ * 联合类型（Union Types）表示取值可以为多种类型中的一种 
+ * 未赋值时联合类型上只能访问两个类型共有的属性和方法
+ */
+let word: string | number;
+// console.log(word.toString())
+word = 1
+console.log(word.toFixed(2));
+word = 'hello';
+console.log(word.length)
+
+
+/**
+ * 类型断言
+ * 有时候你会遇到这样的情况，你会比 TypeScript 更了解某个值的详细信息。
+ * 通常这会发生在你清楚地知道一个实体具有比它现有类型更确切的类型
+ * 其实就是你需要手动告诉 ts 就按照你断言的那个类型通过编译
+ * （这一招很关键 有时候可以帮助你解决很多编译报错）
+ */
+
+/**类型断言有两种形式： */
+
+/**尖括号 */
+let someValue: any = 'this is a string';
+let stringOfLength: number = (<string>someValue).length
+
+/**as */
+let anyValue: any = 'this is a string';
+let anyOfLength: number = (anyValue as string).length
+
+/**
+ * 以上两种方式虽然没有任何区别，
+ * 但是尖括号格式会与 react 中 JSX 产生语法冲突
+ * 因此我们更推荐使用 as 语法。
+ */
+
+/**
+ * 非空断言
+ * 在上下文中当类型检查器无法断定类型时 
+ * 一个新的后缀表达式操作符 ! 可以用于断言操作对象是非 null 和非 undefined 类型
+ */
+let is: null | undefined | string;
+is!.toString() // pass
+// is.toString() // error
+
+/**
+ * 字面量类型
+ * 在 TypeScript 中，字面量不仅可以表示值，还可以表示类型，即所谓的字面量类型。 
+ * 目前，TypeScript 支持 3 种字面量类型：
+ * 字符串字面量类型、数字字面量类型、布尔字面量类型
+ * 对应的字符串字面量、数字字面量、布尔字面量分别拥有与其值一样的字面量类型
+ */
+const f1: 'hello' = "hello"
+const f2: 1 = 1
+const f3: false = false
+
+/**
+ * 类型别名: 用来给一个类型起个新名字
+ */
+type types = string | number;
+function fun(value: types) { }
+
+/**
+ * 交叉类型
+ * 交叉类型是将多个类型合并为一个类型。
+ * 通过 & 运算符可以将现有的多种类型叠加到一起成为一种类型，
+ * 包含了所需的所有类型的特性
+ */
+type typeOfOne = { x: number }
+type typeOfTwo = typeOfOne & { y: string }
+const flagOfThree: typeOfTwo = {
+    x: 1,
+    y: '2'
+}
