@@ -527,15 +527,127 @@ class Father1 {
         this.name = name
     }
 }
-class Son1 extends Father1 {
-    constructor(name: string, age: number, car: string) {
-        super(name, age, car)
+// class Son1 extends Father1 {
+//     constructor(name: string, age: number, car: string) {
+//         // super(name, age, car)
+//     }
+//     desc() {
+//         console.log(`${this.name} ${this.age} ${this.car}`); //car访问不到 会报错
+//     }
+// }
+// const c1 = new Son1('hello', 10, 1000)
+// console.log(c1.name);
+// console.log(c1.age); //age访问不到 会报错
+// console.log(c1.car); //car访问不到 会报错
+
+/**
+ * 静态属性 静态方法
+ * 类的静态属性和方法是直接定义在类本身上面的
+ * 所以也只能通过直接调用类的方法和属性来访问
+ */
+class Father2 {
+    public name: string;
+    static mainName = "father"
+    static getMainName() {
+        /**
+         * 注意静态方法里面的this指向的是类本身 
+         * 而不是类的实例对象 
+         * 所以静态方法里面只能访问类的静态属性和方法
+         */
+        console.log(this)
+        return this.mainName;
     }
-    desc() {
-        console.log(`${this.name} ${this.age} ${this.car}`); //car访问不到 会报错
+
+    constructor(name: string) {
+        /**构造函数 */
+        this.name = name
     }
 }
-const c1 = new Son1('hello', 10, 1000)
-console.log(c1.name);
-console.log(c1.age); //age访问不到 会报错
-console.log(c1.car); //car访问不到 会报错
+console.log(Father2.mainName)
+console.log(Father2.getMainName())
+
+/**
+ * 抽象类和抽象方法
+ *
+ * 抽象类,无法被实例化
+ * 只能被继承并且无法创建抽象类的实例
+ * 子类可以对抽象类进行不同的实现
+ * 
+ * 抽象方法, 只能出现在抽象类中并且抽象方法不能在抽象类中被具体实现
+ * 只能在抽象类的子类中实现（必须要实现）
+ * 
+ * 使用场景: 
+ * 我们一般用抽象类和抽象方法抽离出事物的共性 
+ * 以后所有继承的子类必须按照规范去实现自己的具体逻辑 
+ * 这样可以增加代码的可维护性和复用性
+ * 
+ * 使用 abstract 关键字来定义抽象类和抽象方法
+ */
+abstract class Main {
+    name!: string;
+    abstract speak(): void
+}
+class MainChild extends Main {
+    speak() {
+        console.log('hhhh')
+    }
+}
+// const main = new Main(); /**直接报错 无法创建抽象类的实例 */
+const childMain = new MainChild()
+childMain.speak()
+
+/**
+ * 重写(override)和重载(overload)的区别
+ * 
+ * 重写是指子类重写继承自父类中的方法
+ * 重载是指为同一个函数提供多个类型定义
+ */
+
+/**重写 */
+class Override {
+    speak(word: string): string {
+        return 'animal:' + word
+    }
+}
+class OverrideChild extends Override {
+    speak(word: string): string {
+        return 'Override animal:' + word
+    }
+}
+let overviewChild = new OverrideChild();
+console.log(overviewChild.speak("hello"));
+
+/**重载 */
+function doubleFunc(val: number): number
+function doubleFunc(val: string): string
+function doubleFunc(val: any): any {
+    if (typeof val === 'number') return; val * 2
+    return val + val
+}
+let r = doubleFunc(1);
+console.log(r);
+
+/**
+ * 什么是多态
+ * 在父类中定义一个方法，在子类中有多个实现，
+ * 在程序运行的时候，根据不同的对象执行不同的操作，实现运行时的绑定。
+ */
+abstract class MoreStatus {
+    /**声明抽象方法, 让子类去实现 */
+    abstract sleep(): void
+}
+class Status extends MoreStatus {
+    sleep() {
+        console.log('this is status class')
+    }
+}
+const state = new Status()
+
+class SecondStatus extends MoreStatus {
+    sleep() {
+        console.log("cat sleep");
+    }
+}
+const secondState = new SecondStatus()
+const states: MoreStatus[] = [state, secondState]
+states.forEach(state => state.sleep())

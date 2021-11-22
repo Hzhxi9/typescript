@@ -1,16 +1,26 @@
-var __extends = (this && this.__extends) || (function () {
+var __extends =
+  (this && this.__extends) ||
+  (function () {
     var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
-        return extendStatics(d, b);
+      extendStatics =
+        Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array &&
+          function (d, b) {
+            d.__proto__ = b;
+          }) ||
+        function (d, b) {
+          for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p];
+        };
+      return extendStatics(d, b);
     };
     return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+      extendStatics(d, b);
+      function __() {
+        this.constructor = d;
+      }
+      d.prototype = b === null ? Object.create(b) : ((__.prototype = b.prototype), new __());
     };
-})();
+  })();
 /**boolean */
 var flag = false;
 /**number */
@@ -30,18 +40,18 @@ var str = 'hello';
  */
 var Color;
 (function (Color) {
-    Color[Color["RED"] = 0] = "RED";
-    Color[Color["PINK"] = 1] = "PINK";
-    Color[Color["BLUE"] = 2] = "BLUE";
+  Color[(Color['RED'] = 0)] = 'RED';
+  Color[(Color['PINK'] = 1)] = 'PINK';
+  Color[(Color['BLUE'] = 2)] = 'BLUE';
 })(Color || (Color = {}));
 var pink = Color.PINK;
 console.log(pink); // 1
 /**设置初始值 */
 var ColorMap;
 (function (ColorMap) {
-    ColorMap[ColorMap["RED"] = 10] = "RED";
-    ColorMap[ColorMap["PINK"] = 11] = "PINK";
-    ColorMap[ColorMap["BLUE"] = 12] = "BLUE";
+  ColorMap[(ColorMap['RED'] = 10)] = 'RED';
+  ColorMap[(ColorMap['PINK'] = 11)] = 'PINK';
+  ColorMap[(ColorMap['BLUE'] = 12)] = 'BLUE';
 })(ColorMap || (ColorMap = {}));
 var pink1 = ColorMap.PINK;
 console.log(pink1); // 11
@@ -64,7 +74,7 @@ var tuples = ['1', 2];
  */
 var symbol1 = Symbol('hello');
 var symbol2 = Symbol('hello');
-console.log(Symbol("hello") === Symbol("hello")); // false
+console.log(Symbol('hello') === Symbol('hello')); // false
 /**
  * 任意类型(any)
  * 任何类型都可以被归为 any 类型
@@ -108,14 +118,14 @@ var value2 = value; // pass
  * 表示没有任何类型
  * 当一个函数没有返回值时 TS 会认为它的返回值是 void 类型。
  */
-function func(name) { }
+function func(name) {}
 /**
  * never
  * never 一般表示用户无法达到的类型
  * 例如 never 类型是那些总是会抛出异常或根本就不会有返回值的函数表达式或箭头函数表达式的返回值类型
  */
 function errorFunc() {
-    throw new Error('error');
+  throw new Error('error');
 }
 /**
  * never 和 void 的区别:
@@ -225,13 +235,13 @@ is.toString(); // pass
  * 字符串字面量类型、数字字面量类型、布尔字面量类型
  * 对应的字符串字面量、数字字面量、布尔字面量分别拥有与其值一样的字面量类型
  */
-var f1 = "hello";
+var f1 = 'hello';
 var f2 = 1;
 var f3 = false;
-function fun(value) { }
+function fun(value) {}
 var flagOfThree = {
-    x: 1,
-    y: '2'
+  x: 1,
+  y: '2',
 };
 /**
  * 类型保护
@@ -242,36 +252,29 @@ var flagOfThree = {
  */
 /**typeof 类型保护 */
 function double(input) {
-    if (typeof input === 'string')
-        return input + input;
-    else if (typeof input === 'number')
-        return input * 2;
-    else
-        return !input;
+  if (typeof input === 'string') return input + input;
+  else if (typeof input === 'number') return input * 2;
+  else return !input;
 }
 function getNumber(value) {
-    if ('fly' in value)
-        return value.fly;
-    return value.leg;
+  if ('fly' in value) return value.fly;
+  return value.leg;
 }
 /**instanceof 类型保护 */
 var Animal = /** @class */ (function () {
-    function Animal() {
-    }
-    return Animal;
-}());
+  function Animal() {}
+  return Animal;
+})();
 var Bird = /** @class */ (function (_super) {
-    __extends(Bird, _super);
-    function Bird() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    return Bird;
-}(Animal));
+  __extends(Bird, _super);
+  function Bird() {
+    return (_super !== null && _super.apply(this, arguments)) || this;
+  }
+  return Bird;
+})(Animal);
 function getCount(animal) {
-    if (animal instanceof Bird)
-        console.log(animal.fly);
-    else
-        console.log(animal.name);
+  if (animal instanceof Bird) console.log(animal.fly);
+  else console.log(animal.name);
 }
 /**
  * 自定义类型保护
@@ -280,51 +283,56 @@ function getCount(animal) {
  * 那么定义的 value 就是 object 类型
  */
 function isObject(value) {
-    return typeof value === 'object' && value !== null;
+  return typeof value === 'object' && value !== null;
 }
 function fn(x) {
-    if (isObject(x)) {
-        //...
-    }
-    else {
-        // ...
-    }
+  if (isObject(x)) {
+    //...
+  } else {
+    // ...
+  }
 }
 /**
  * 函数的定义
  * 可以指定参数的类型和返回值的类型
  **/
 function hello(name) {
-    console.log('hello', name);
+  console.log('hello', name);
 }
 hello('hh');
-var countNumber = function (a, b) { return a + b; };
+var countNumber = function (a, b) {
+  return a + b;
+};
 /**
  * 可选参数
  * 在 TS 中函数的形参和实参必须一样
  * 不一样就要配置可选参数,而且必须是最后一个参数
  */
 function print(name, age) {
-    console.log(name, age);
+  console.log(name, age);
 }
-print("hhhh");
+print('hhhh');
 /**
  * 默认参数
  */
 function ajax(url, method) {
-    if (method === void 0) { method = "GET"; }
-    console.log(url, method);
+  if (method === void 0) {
+    method = 'GET';
+  }
+  console.log(url, method);
 }
 ajax('/user');
 /**
  * 剩余参数
  */
 function sum() {
-    var num = [];
-    for (var _i = 0; _i < arguments.length; _i++) {
-        num[_i] = arguments[_i];
-    }
-    return num.reduce(function (acc, cur) { return acc += cur; }, 0);
+  var num = [];
+  for (var _i = 0; _i < arguments.length; _i++) {
+    num[_i] = arguments[_i];
+  }
+  return num.reduce(function (acc, cur) {
+    return (acc += cur);
+  }, 0);
 }
 console.log(sum(1, 2, 3));
 /**
@@ -338,28 +346,26 @@ console.log(sum(1, 2, 3));
  */
 var obj2 = {};
 function attr(val) {
-    if (typeof val === 'string')
-        obj2.name = val;
-    else
-        obj2.age = val;
+  if (typeof val === 'string') obj2.name = val;
+  else obj2.age = val;
 }
 attr('hello');
 attr(9);
-// attr(true); 
+// attr(true);
 console.log(obj2);
 /**
  * 类
  * 在 TypeScript 中，我们可以通过 Class 关键字来定义一个类
  */
 var Person = /** @class */ (function () {
-    function Person(_name) {
-        this.name = _name;
-    }
-    Person.prototype.getName = function () {
-        console.log(this.name);
-    };
-    return Person;
-}());
+  function Person(_name) {
+    this.name = _name;
+  }
+  Person.prototype.getName = function () {
+    console.log(this.name);
+  };
+  return Person;
+})();
 var p1 = new Person('hello');
 p1.getName();
 /**
@@ -368,12 +374,12 @@ p1.getName();
  * 另一个是类的实例类型（代表实例）
  */
 var Component = /** @class */ (function () {
-    function Component() {
-        this.myName = "实例名称";
-    }
-    Component.myName = "静态名称";
-    return Component;
-}());
+  function Component() {
+    this.myName = '实例名称';
+  }
+  Component.myName = '静态名称';
+  return Component;
+})();
 /**
  * ts 一个类型 一个叫值
  */
@@ -388,21 +394,21 @@ var f = comp;
  * 我们可以通过存取器来改变一个类中属性的读取和赋值行为
  */
 var User = /** @class */ (function () {
-    function User(myName) {
-        this.myName = myName;
-    }
-    Object.defineProperty(User.prototype, "name", {
-        get: function () {
-            return this.myName;
-        },
-        set: function (value) {
-            this.myName = value;
-        },
-        enumerable: false,
-        configurable: true
-    });
-    return User;
-}());
+  function User(myName) {
+    this.myName = myName;
+  }
+  Object.defineProperty(User.prototype, 'name', {
+    get: function () {
+      return this.myName;
+    },
+    set: function (value) {
+      this.myName = value;
+    },
+    enumerable: false,
+    configurable: true,
+  });
+  return User;
+})();
 var user = new User('home');
 user.name = 'world';
 /**
@@ -412,14 +418,14 @@ user.name = 'world';
  * readonly 实际上只是在编译阶段进行代码检查。
  */
 var Animal1 = /** @class */ (function () {
-    function Animal1(name) {
-        this.name = name;
-    }
-    Animal1.prototype.changeName = function (name) {
-        // this.name = name // error
-    };
-    return Animal1;
-}());
+  function Animal1(name) {
+    this.name = name;
+  }
+  Animal1.prototype.changeName = function (name) {
+    // this.name = name // error
+  };
+  return Animal1;
+})();
 var a = new Animal1('dog');
 /**
  * 继承
@@ -429,31 +435,31 @@ var a = new Animal1('dog');
  * 在 TypeScript 中，我们可以通过 extends 关键字来实现继承
  */
 var Father = /** @class */ (function () {
-    function Father(name, age) {
-        /**构造函数 */
-        this.name = name;
-        this.age = age;
-    }
-    Father.prototype.getName = function () {
-        return this.name;
-    };
-    Father.prototype.setName = function (name) {
-        this.name = name;
-    };
-    return Father;
-}());
+  function Father(name, age) {
+    /**构造函数 */
+    this.name = name;
+    this.age = age;
+  }
+  Father.prototype.getName = function () {
+    return this.name;
+  };
+  Father.prototype.setName = function (name) {
+    this.name = name;
+  };
+  return Father;
+})();
 var Son = /** @class */ (function (_super) {
-    __extends(Son, _super);
-    function Son(name, age, no) {
-        var _this = _super.call(this, name, age) || this;
-        _this.no = no;
-        return _this;
-    }
-    Son.prototype.getNo = function () {
-        return this.no;
-    };
-    return Son;
-}(Father));
+  __extends(Son, _super);
+  function Son(name, age, no) {
+    var _this = _super.call(this, name, age) || this;
+    _this.no = no;
+    return _this;
+  }
+  Son.prototype.getNo = function () {
+    return this.no;
+  };
+  return Son;
+})(Father);
 var s1 = new Son('hello', 10, 1);
 console.log(s1);
 /**
@@ -463,31 +469,33 @@ console.log(s1);
  * private 类里面可以访问，子类和其它任何地方都不可以访问
  */
 var Father1 = /** @class */ (function () {
-    function Father1(name, age, car) {
-        /**构造函数 */
-        this.name = name;
-        this.age = age;
-        this.car = car;
-    }
-    Father1.prototype.getName = function () {
-        return this.name;
-    };
-    Father1.prototype.setName = function (name) {
-        this.name = name;
-    };
-    return Father1;
-}());
+  function Father1(name, age, car) {
+    /**构造函数 */
+    this.name = name;
+    this.age = age;
+    this.car = car;
+  }
+  Father1.prototype.getName = function () {
+    return this.name;
+  };
+  Father1.prototype.setName = function (name) {
+    this.name = name;
+  };
+  return Father1;
+})();
 var Son1 = /** @class */ (function (_super) {
-    __extends(Son1, _super);
-    function Son1(name, age, car) {
-        return _super.call(this, name, age, car) || this;
-    }
-    Son1.prototype.desc = function () {
-        console.log(this.name + " " + this.age + " " + this.car); //car访问不到 会报错
-    };
-    return Son1;
-}(Father1));
+  __extends(Son1, _super);
+  function Son1(name, age, car) {
+    return _super.call(this, name, age, car) || this;
+  }
+  Son1.prototype.desc = function () {
+    console.log(this.name + ' ' + this.age + ' ' + this.car); //car访问不到 会报错
+  };
+  return Son1;
+})(Father1);
 var c1 = new Son1('hello', 10, 1000);
 console.log(c1.name);
 console.log(c1.age); //age访问不到 会报错
 console.log(c1.car); //car访问不到 会报错
+
+
