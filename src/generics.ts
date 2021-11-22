@@ -84,3 +84,51 @@ interface Cart<T> {
 const cart: Cart<{ name: string, age: number }> = {
     list: [{ name: '1', age: 2 }]
 }
+
+/**
+ * 5. 泛型类
+ * 一个在数组里面添加数字并且获取最大值的泛型类
+ */
+class MainArray<T>{
+    private list: T[] = []
+    add(value: T) {
+        this.list.push(value)
+    }
+    getMax(): T {
+        let result = this.list[0]
+        for (let i = 0, len = this.list.length; i < len; i++) {
+            if (this.list[i] > result) result = this.list[i]
+        }
+        return result
+    }
+}
+let arr = new MainArray();
+arr.add(1);
+arr.add(2);
+arr.add(3);
+let ret = arr.getMax();
+console.log(ret);
+
+/**
+ * 6. 泛型类型别名
+ */
+type CartType<T> = { list: T[] } | T[]
+const t1: CartType<string> = {
+    list: ['1']
+}
+const t2: CartType<number> = [1]
+
+/**
+ * 7. 泛型参数的默认类型
+ * 
+ * 可以为泛型中的类型参数指定默认类型
+ * 当使用泛型时没有在代码中直接指定类型参数
+ * 从实际值参数中也无法推测出时，这个默认类型就会起作用
+ */
+function createArr<T = string>(len: number, value: T): T[] {
+    const result = []
+    for (let i = 0; i < len; i++) result[i] = value
+    return result
+}
+createArr(3, '2')
+createArr<number>(3, 3)
